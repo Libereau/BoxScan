@@ -3,6 +3,7 @@ import nmap3
 import json
 import argparse
 import pyfiglet
+import time
 from colorama import Fore, Style
 
 
@@ -10,6 +11,8 @@ if not os.geteuid() == 0:
     sys.exit(Fore.RED + "\nNeed to be run as root\n" + Style.RESET_ALL)
 
 os.system('clear')
+
+start_time = time.time()
 
 ascii_banner = pyfiglet.figlet_format("BoxScan")
 print(ascii_banner + "By Libereau")
@@ -258,7 +261,7 @@ def openPort(ip):
             cmd1 = "enum4linux -U -S "+ip
             os.system(cmd1)
             print(Fore.RED + "[-] Smbclient" + Style.RESET_ALL)
-            cmd2 = "smbclient -L //"+ip+" -U=" # add user%password here
+            cmd2 = "smbclient -L //"+ip+" -U=libereau%root"
             os.system(cmd2)
 
         elif port == "2049":
@@ -315,3 +318,7 @@ def openPort(ip):
 
 pingScan()
 openPort(ip)
+stop_time = time.time()
+
+execution_time = round(stop_time - start_time, 1)
+print("\n[!] Executed in "+str(execution_time)+"secs")
