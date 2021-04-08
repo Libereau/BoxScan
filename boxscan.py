@@ -258,7 +258,7 @@ def openPort(ip):
             cmd1 = "enum4linux -U -S "+ip
             os.system(cmd1)
             print(Fore.RED + "[-] Smbclient" + Style.RESET_ALL)
-            cmd2 = "smbclient -L //"+ip+" -U=libereau%root"
+            cmd2 = "smbclient -L //"+ip+" -U=" # add user%password here
             os.system(cmd2)
 
         elif port == "2049":
