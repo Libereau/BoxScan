@@ -16,7 +16,7 @@ It will perform :
 ## Usage
 
 Basic usage :
-- ./boxscan.py [-i | --ip] <ip> [-s | --scan] {FULL | DEFA | VERS}
+- `./boxscan.py [-i | --ip] <ip> [-s | --scan] {FULL | DEFA | VERS}`
 
 ## Requirements
 
