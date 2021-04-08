@@ -27,7 +27,7 @@ Command :
 
 ## TODO
 
-- [ ] Add execution time
+- [X] Add execution time
 - [X] Ping Scan - Need to check for host down
 - [X] Scan nmap
 
