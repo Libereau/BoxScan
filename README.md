@@ -20,12 +20,10 @@ Basic usage :
 
 ## Requirements
 
-- python3-nmap
-- argparse
-- colorama
+See requirements.txt
 
-Can be installed with pip3 :
-- Example : pip3 install <module>
+Command :
+- `pip3 install -r requirements`
 
 ## TODO
 
