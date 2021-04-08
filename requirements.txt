@@ -2,4 +2,3 @@ python3-nmap
 argparse
 colorama
 pyfiglet
-json
