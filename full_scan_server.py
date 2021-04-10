@@ -9,7 +9,7 @@ ip = args.ip
 
 nmap_parse = "/home/libereau/nmap-parse-output/nmap-parse-output"
 
-os.system("nmap "+ip+" --min-rate 1000 --top-ports 1000 -A -sC -sV -T5 --version-intensity 8 -oX scan_"+ip+"/output.xml >/dev/null")
+os.system("nmap "+ip+" --min-rate 5000 -p- -A -sC -sV -T5 --version-intensity 8 -oX scan_"+ip+"/output.xml >/dev/null")
 os.system(nmap_parse+" scan_"+ip+"/output.xml html > scan_"+ip+"/output.html") #marche pas
 
 
