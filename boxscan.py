@@ -7,9 +7,6 @@ import time
 from colorama import Fore, Style
 
 
-if not os.geteuid() == 0:
-    sys.exit(Fore.RED + "\nNeed to be run as root\n" + Style.RESET_ALL)
-
 os.system('clear')
 
 start_time = time.time()
@@ -29,12 +26,13 @@ args = parser.parse_args()
 tab_port = []
 ip = args.ip
 choice = args.scan
+nmap_parse = "/home/libereau/nmap-parse-output/nmap-parse-output"
 
 def pingScan():
     print("Scan of "+ip+"\n")
 
     try:
-        os.mkdir("scan_"+ip)
+        os.system("mkdir -m 777 scan_"+ip)
     except:
         print("[!] Directory already exist..\n")
 
@@ -73,7 +71,7 @@ def full_scan():
     print(Fore.RED + "\n-- Full Scan --\n" + Style.RESET_ALL)
 
     fullScan = open("scan_"+ip+"/fullScan_"+ip, "w")
-    results = nmap.scan_top_ports(ip, 65300, args="-A")
+    results = nmap.scan_top_ports(ip, 65300, args="-A -sC")
     json.dump(results, fullScan)
 
     fullScan = open("scan_"+ip+"/fullScan_"+ip, "r")
@@ -98,26 +96,10 @@ def full_scan():
                     version = i['service']['version']
                     output += "\t"+version
 
-                    searchsploit = ""
-                    searchsploit = " ".join(output.replace("\t"," ").split(" ")[4:])
-                    #os.system("echo \r\n"+searchsploit+" > scan_"+ip+"/searchsploit_"+ip)
-                    os.system("searchsploit "+searchsploit+" >> scan_"+ip+"/searchsploit_"+ip)
-                    searchsploit = ""
-
-                    for j in i['scripts'] :
-                        if 'raw' in j:
-                            if ("Drupal" in j['raw']) or ("Wordpress" in j['raw']) or ("Joomla" in j['raw']):
-                                version_cms = j['raw']
-                                output += "\t"+version_cms
-                                version_cms = " ".join(version_cms.split(" ")[:-1])
-                                #os.system("echo \r\n"+version_cms+" >> scan_"+ip+"/searchsploit_"+ip)
-                                cmd = "searchsploit "+version_cms+" >> scan_"+ip+"/searchsploit_"+ip
-                                os.system(cmd)
-
         print(Fore.GREEN + output + Style.RESET_ALL)
         output = ""
     print("\n")
-
+    os.system("python3 full_scan_server.py -i "+ip+" &")
 
 def defa_scan():
     print(Fore.RED + "\n-- Default Scan --\n" + Style.RESET_ALL)
@@ -153,22 +135,6 @@ def defa_scan():
                     version = i['service']['version']
                     output += "\t"+version
 
-                    searchsploit = ""
-                    searchsploit = " ".join(output.replace("\t"," ").split(" ")[4:])
-                    #os.system("echo \r\n"+searchsploit+" > scan_"+ip+"/searchsploit_"+ip)
-                    os.system("searchsploit "+searchsploit+" >> scan_"+ip+"/searchsploit_"+ip)
-                    searchsploit = ""
-
-                    for j in i['scripts'] :
-                        if 'raw' in j:
-                            if ("Drupal" in j['raw']) or ("Wordpress" in j['raw']) or ("Joomla" in j['raw']):
-                                version_cms = j['raw']
-                                output += "\t"+version_cms
-                                version_cms = " ".join(version_cms.split(" ")[:-1])
-                                #os.system("echo \r\n"+version_cms+" >> scan_"+ip+"/searchsploit_"+ip)
-                                cmd = "searchsploit "+version_cms+" >> scan_"+ip+"/searchsploit_"+ip
-                                os.system(cmd)
-
         print(Fore.GREEN + output + Style.RESET_ALL)
         output = ""
 
@@ -177,9 +143,10 @@ def defa_scan():
     try :
         if os.stat("scan_"+ip+"/searchsploit_"+ip).st_size != 0 :
             print(Fore.RED + "\n\t[!] Go check searchsploit_"+ip+" if public known exploit !" + Style.RESET_ALL)
-
     except:
         pass
+
+    os.system("python3 full_scan_server.py -i "+ip+" &")
 
 
 def vers_scan():
@@ -213,6 +180,7 @@ def vers_scan():
         print(Fore.GREEN + output + Style.RESET_ALL)
         output = ""
     print("\n")
+    os.system("python3 full_scan_server.py -i "+ip+" &")
 
 def openPort(ip):
     for port in tab_port:
