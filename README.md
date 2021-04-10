@@ -12,6 +12,7 @@ It will perform :
 - Ping scan
 - Nmap scan (default, full scan, or version scan)
 - Specific scan according to nmap output
+- Then it will scan, with nmap, more aggressivly the box, output the result in xml, convert it in html, and show the output in Firefox
 
 ## Usage
 
@@ -25,18 +26,16 @@ See requirements.txt
 Command :
 - `pip3 install -r requirements`
 
-## TODO
+## DONE
 
 - [X] Add execution time
 - [X] Ping Scan - Need to check for host down
 - [X] Scan nmap
+- [X] Parsing nmap output according to open ports
+- [X] Launch specific scans
+- [X] Nmap output in xml and spawn firefox with the output displayed
 
-- [X] Searchsploit on services / versions - OK, but need to be better
-- [X] Parsing nmap according to open ports
-- [X] Launch specific scans (focus web)
-- [ ] Add file for scan's output 
-- [ ] Nmap output in xml and spawn python server (better reading experience)
-
-Later :
+## TODO
+- [ ] Add file for scan's output
 - [ ] Create report
 - [ ] Change nmap for masscan
