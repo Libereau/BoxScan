@@ -16,6 +16,8 @@ It will perform :
 
 ## Usage
 
+**Don't run it as root, it will create privilege issues !**
+
 Basic usage :
 - `./boxscan.py [-i | --ip] <ip> [-s | --scan] {FULL | DEFA | VERS}`
 
